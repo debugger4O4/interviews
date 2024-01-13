@@ -1,2 +1,2 @@
 # Interviews
-Tasks from interviews
+Задачи с собеседований
