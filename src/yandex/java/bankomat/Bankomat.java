@@ -43,14 +43,14 @@ public class Bankomat {
 
     public Map<Nominals, Integer> getMoney(int amount) {
         if (banknotes.isEmpty()) {
-            throw new RuntimeException("Недостаточно средств в банкомате!");
+            throw new RuntimeException("There are not enough funds in the ATM!");
         }
         Map<Nominals, Integer> result = new HashMap<>();
         Nominals[] nominals = Nominals.values();
         int index = nominals.length - 1; // Начинаем с самого большого номинала
         while (amount > 0 && index >= 0) {
             int currentNominal = nominals[index].value;
-            if (amount >= currentNominal && banknotes.get(nominals[index]) > 0) {
+            if (amount >= currentNominal && banknotes.containsKey(nominals[index]) && banknotes.get(nominals[index]) > 0) {
                 int numBanknotes = Math.min(amount / currentNominal, banknotes.get(nominals[index]));
                 result.put(nominals[index], numBanknotes);
                 amount -= currentNominal * numBanknotes;
@@ -58,7 +58,7 @@ public class Bankomat {
             index--; // Переходим к следующему номиналу
         }
         if (amount > 0) {
-            throw new RuntimeException("Невозможно выдать заданную сумму купюрами в наличии");
+            throw new RuntimeException("It is impossible to issue the specified amount in banknotes available");
         }
         return result;
     }
