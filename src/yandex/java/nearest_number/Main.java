@@ -38,6 +38,7 @@ public class Main {
                 result = arr[i];
             }
         }
+
         System.out.println(result);
     }
 }
