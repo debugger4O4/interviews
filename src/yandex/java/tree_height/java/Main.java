@@ -24,11 +24,70 @@ package yandex.java.tree_height.java;
 - У всех вершин левого поддерева вершины v ключи не больше, чем ключ v.
 - У всех вершин правого поддерева вершины v ключи больше, чем ключ v.
 - Оба поддерева — левое и правое — являются двоичными деревьями поиска.
-
-Для тестового примера, бинарное дерево поиска будет иметь следующий вид:
-<p><img src="content/binary_search_tree.jpg"/></p>
 */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        int[] arr = Arrays.stream(
+                        Arrays.stream(reader.readLine()
+                                        .split(" ")
+                                )
+                                .mapToInt(Integer::parseInt)
+                                .toArray()
+                )
+                .filter(f -> f > 0)
+                .toArray();
+        reader.close();
+
+        TreeNode tree = fillTree(arr);
+        int result = getResult(tree);
+        System.out.println(result);
+    }
+
+    private static TreeNode fillTree(int[] arr) {
+        TreeNode root = new TreeNode(arr[0]);
+        for (int j : arr) {
+            put(root, j);
+        }
+        return root;
+    }
+
+    private static TreeNode put(TreeNode parentNode, int newValue) {
+        if (parentNode == null) {
+            return new TreeNode(newValue);
+        }
+
+        if (newValue < parentNode.val) {
+            parentNode.left = put(parentNode.left, newValue);
+        } else if (newValue > parentNode.val) {
+            parentNode.right = put(parentNode.right, newValue);
+        }
+        return parentNode;
+    }
+
+    private static int getResult(TreeNode tree) {
+        if (tree == null) {
+            return 0;
+        }
+        int maxLeft = getResult(tree.left);
+        int maxRight = getResult(tree.right);
+        return Math.max(maxLeft, maxRight) + 1;
+    }
+
+    static class TreeNode {
+        private TreeNode left;
+        private TreeNode right;
+        private int val;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
+    }
 }
