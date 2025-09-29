@@ -26,7 +26,7 @@ package yandex.java.tree_height.java;
 - Оба поддерева — левое и правое — являются двоичными деревьями поиска.
 
 Для тестового примера, бинарное дерево поиска будет иметь следующий вид:
-images/binary_tree.png
+<p><img src="./content/tree_example.png"/></p>
 */
 
 
