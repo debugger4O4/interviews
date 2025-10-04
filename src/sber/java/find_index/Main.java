@@ -1,5 +1,7 @@
 package sber.java.find_index;
 
+// Найти индекс, где сумма левых и правых чисел от индекса будет минимальной
+
 public class Main {
     public static void main(String[] args) {
         System.out.println(min(new int[]{1, 2, 3, 4}));
